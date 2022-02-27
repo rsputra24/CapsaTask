@@ -1,20 +1,32 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class PlayerManager : MonoBehaviour
 {
-    public Character playerData;
+    public Player[] players = new Player[4];
+    public static PlayerManager instance { get; private set; }
 
-    public static PlayerManager instance;
-
-    public void SetPlayerData(Character character)
+    public void SetPlayerDataByIndex(int index, Character character)
     {
-        playerData = character;
+        players[index].SetPlayerData(character);
     }
 
-    public Character GetPlayerData()
+    public Player GetPlayerData(int index)
     {
-        return playerData;
+        return players[index];
+    }
+    public Character GetPlayerCharacterData(int index)
+    {
+        return players[index].GetPlayerData();
+    }
+
+    private void Start()
+    {
+        for(int i=0; i<Global.PLAYERSCOUNT; i++)
+        {
+            players[i] = new Player();
+        }
     }
 
     private void Awake()
@@ -24,7 +36,7 @@ public class PlayerManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else
+        else if(instance != this)
         {
             Destroy(this);
         }

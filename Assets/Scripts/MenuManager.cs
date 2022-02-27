@@ -11,26 +11,47 @@ public class MenuManager : MonoBehaviour
     public GameObject characterButtonPrefab;
     public List<Character> characters;
 
-    // Start is called before the first frame update
     void Start()
     {
-        foreach(Character character in characters)
+        for (int i = 0; i < characters.Count; i++)
         {
+            int index = i;
+            Character character = characters[i];
             GameObject newCharacterButton = Instantiate(characterButtonPrefab, characterPanel.transform);
+            Button button = newCharacterButton.GetComponent<Button>();
             newCharacterButton.GetComponent<Image>().sprite = character.normal;
             newCharacterButton.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = character.name;
+            button.onClick.AddListener(delegate { CharacterButtonClicked(index); });
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
 
-    public void onCharacterButtonClicked(int index)
-    {
-        PlayerManager.instance.SetPlayerData(characters[index]);
+    void AddBots(int usedPlayerIndex, int usedCharacterIndex) {
+        for (int i = 0; i < characters.Count; i++) {
+            if (usedCharacterIndex == i) {
+                continue;
+            }
+            for (int j = 0; j < Global.PLAYERSCOUNT; j++)
+            {
+                if (usedPlayerIndex == j) {
+                    continue;
+                } else if(PlayerManager.instance.GetPlayerCharacterData(j) == null) {
+                    PlayerManager.instance.SetPlayerDataByIndex(j, characters[i]);
+                    break;
+                }
+            }
+        }
+
+        
+    }
+
+    void CharacterButtonClicked(int index) {
+        PlayerManager.instance.SetPlayerDataByIndex(0, characters[index]);
+        AddBots(0, index);
         SceneManager.LoadScene("GameScene");
     }
 }
