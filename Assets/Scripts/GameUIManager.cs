@@ -29,7 +29,7 @@ public class GameUIManager : MonoBehaviour
     {
         for(int i=0; i<Global.PLAYERSCOUNT; i++)
         {
-            Character characterData = PlayerManager.instance.GetPlayerCharacterData(i);
+            Character characterData = Singleton.instance.playerManager.GetPlayerCharacterData(i);
             playersUIObjects[i].transform.GetChild(0).GetComponent<Image>().sprite = characterData.normal;
             playersUIObjects[i].transform.GetChild(1).GetComponent<Text>().text = characterData.name;
         }

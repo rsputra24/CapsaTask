@@ -9,7 +9,7 @@ public class MenuManager : MonoBehaviour
 {
     public GameObject characterPanel;
     public GameObject characterButtonPrefab;
-    public List<Character> characters;
+    public List<Character> characters = new List<Character>();
 
     void Start()
     {
@@ -39,18 +39,18 @@ public class MenuManager : MonoBehaviour
             {
                 if (usedPlayerIndex == j) {
                     continue;
-                } else if(PlayerManager.instance.GetPlayerCharacterData(j) == null) {
-                    PlayerManager.instance.SetPlayerDataByIndex(j, characters[i]);
+                } else if(Singleton.instance.playerManager.GetPlayerCharacterData(j) == null || 
+                    Singleton.instance.playerManager.GetPlayerCharacterData(j).name == null ||
+                    Singleton.instance.playerManager.GetPlayerCharacterData(j).name == "") {
+                    Singleton.instance.playerManager.SetPlayerDataByIndex(j, characters[i]);
                     break;
                 }
             }
         }
-
-        
     }
 
     void CharacterButtonClicked(int index) {
-        PlayerManager.instance.SetPlayerDataByIndex(0, characters[index]);
+        Singleton.instance.playerManager.SetPlayerDataByIndex(0, characters[index]);
         AddBots(0, index);
         SceneManager.LoadScene("GameScene");
     }

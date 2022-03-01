@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public  class Global
 {
@@ -8,19 +5,20 @@ public  class Global
     public static int CARDSCOUNT = 52;
     public static int LINE1CARDMAX = 3;
     public static int LINE23CARDMAX = 5;
+    public static int SWAPTIME = 45;
     public enum CARD{
-        CARD_A,
-        CARD_K,
-        CARD_Q,
-        CARD_J,
-        CARD_10,
-        CARD_9,
-        CARD_8,
-        CARD_7,
-        CARD_6,
-        CARD_5,
-        CARD_4,
         CARD_3,
+        CARD_4,
+        CARD_5,
+        CARD_6,
+        CARD_7,
+        CARD_8,
+        CARD_9,
+        CARD_10,
+        CARD_J,
+        CARD_Q,
+        CARD_K,
+        CARD_A,
         CARD_2
     };
 

@@ -3,7 +3,9 @@ guid: 9f5fc4fed99703341bcd7b515d38745f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - characterPanel: {instanceID: 0}
+  - characterButtonPrefab: {fileID: 1701017953136830341, guid: aac432a927382764394658dcb823155d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

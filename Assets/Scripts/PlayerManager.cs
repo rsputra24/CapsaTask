@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class PlayerManager : MonoBehaviour
 {
     public Player[] players = new Player[4];
-    public static PlayerManager instance { get; private set; }
 
     public void SetPlayerDataByIndex(int index, Character character)
     {
@@ -28,19 +27,5 @@ public class PlayerManager : MonoBehaviour
             players[i] = new Player();
         }
     }
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if(instance != this)
-        {
-            Destroy(this);
-        }
-    }
-
 
 }
