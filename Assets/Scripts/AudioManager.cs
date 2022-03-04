@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public AudioSource audioSource;
+    public List<AudioClip> audioClips;
+
+    private void OnEnable()
+    {
+        Card.OnCardFlipped += PlayFlipSound;
+    }
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
+    }
+
+    public void PlaySFX(Global.AUDIOCLIPS clip)
+    {
+        audioSource.PlayOneShot(audioClips[(int) clip]);
+    }
+
+    public void PlayFlipSound()
+    {
+        PlaySFX(Global.AUDIOCLIPS.FLIP);
     }
 }

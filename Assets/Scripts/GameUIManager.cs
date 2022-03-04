@@ -29,9 +29,25 @@ public class GameUIManager : MonoBehaviour
     {
         for(int i=0; i<Global.PLAYERSCOUNT; i++)
         {
-            Character characterData = Singleton.instance.playerManager.GetPlayerCharacterData(i);
+            Player player = Singleton.instance.playerManager.players[i];
+            Character characterData = player.GetPlayerCharData();
+
             playersUIObjects[i].transform.GetChild(0).GetComponent<Image>().sprite = characterData.normal;
             playersUIObjects[i].transform.GetChild(1).GetComponent<Text>().text = characterData.name;
+            playersUIObjects[i].transform.GetChild(2).GetChild(0).GetComponent<Text>().text = player.GetMoney().ToString();
+        }
+    }
+
+    public void UpdateUI()
+    {
+        for (int i = 0; i < Global.PLAYERSCOUNT; i++)
+        {
+            Player player = Singleton.instance.playerManager.players[i];
+            Character characterData = player.GetPlayerCharData();
+
+            playersUIObjects[i].transform.GetChild(0).GetComponent<Image>().sprite = characterData.normal;
+            playersUIObjects[i].transform.GetChild(1).GetComponent<Text>().text = characterData.name;
+            playersUIObjects[i].transform.GetChild(2).GetChild(0).GetComponent<Text>().text = player.GetMoney().ToString();
         }
     }
 
