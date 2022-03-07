@@ -113,15 +113,9 @@ public class CapsaLogic
                 {
                     int firstPairCount = pairsList[0].Count;
                     int secondPairCount = pairsList[1].Count;
-                    Debug.Log("first " + firstPairCount);
-                    Debug.Log("second " + secondPairCount);
                     if (firstPairCount == 1 && secondPairCount == 1)
                     {
                         rankComboInfo.rank = Global.CARDSRANK.TWO_PAIR;
-                    }
-                    else if(firstPairCount == 2 && secondPairCount == 1 || firstPairCount == 1 && secondPairCount == 2)
-                    {
-                        //rankComboInfo.rank = Global.CARDSRANK.FULL_HOUSE;
                     }
                 }
             }
