@@ -60,7 +60,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09de8a22c6b2eab4daac65d723264775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animateFlip: 0
+  frontImage: {fileID: 4451096110796083806}
+  backImage: {fileID: 8385354554680080764}
+  numberImage: {fileID: 2774052676771033998}
+  typeImage: {fileID: 2774052677461090642}
+  bigTypeImage: {fileID: 2774052677309671589}
+  cardOnDeck: {fileID: 0}
+  controlable: 0
 --- !u!114 &7755723480587173869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 01ba7b0e1f3d4fe98ee1d4fdfc1c0cf0, type: 3}
+  m_Sprite: {fileID: -2374222918679686493, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -245,7 +251,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 14337ed8d077471ca0708e61578fb1e4, type: 3}
+  m_Sprite: {fileID: -265429860660026926, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -320,7 +326,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 14337ed8d077471ca0708e61578fb1e4, type: 3}
+  m_Sprite: {fileID: -265429860660026926, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -398,7 +404,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bd172119e70d47cc9036cf01c6daa205, type: 3}
+  m_Sprite: {fileID: 4767218137718297435, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -473,7 +479,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c6aa3857d10141369a167f218819bb9c, type: 3}
+  m_Sprite: {fileID: 1187961194834725857, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

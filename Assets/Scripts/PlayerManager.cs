@@ -4,11 +4,21 @@ using System.Collections.Generic;
 
 public class PlayerManager : MonoBehaviour
 {
-    private int money = 0;
-    private string playerName = "";
     public Player[] players = new Player[4];
+    public GameObject playerPrefab;
+    public static PlayerManager instance { get; private set; }
 
-    public void SetPlayerDataByIndex(int index, Character character)
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+        public void SetPlayerDataByIndex(int index, Character character)
     {
         players[index].SetPlayerData(character);
     }
@@ -24,8 +34,6 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-        money = PlayerPrefs.GetInt("money", Global.INITIALMONEY);
-        playerName = PlayerPrefs.GetString("name");
         CreatePlayers();
     }
 
@@ -33,13 +41,15 @@ public class PlayerManager : MonoBehaviour
     {
         for (int i = 0; i < Global.PLAYERSCOUNT; i++)
         {
-            players[i] = new Player(i);
+            players[i] = Instantiate(playerPrefab, transform).GetComponent<Player>();
+            players[i].SetIndex(i);
             if (i > 0) //set players from index other than 0 as bot
             {
                 players[i].SetAsBot();
             }
             else
             {
+                int money = PlayerPrefs.GetInt("money", Global.INITIALMONEY);
                 players[i].SetMoney(money);
             }
         }
@@ -47,9 +57,9 @@ public class PlayerManager : MonoBehaviour
 
     public void ResetData()
     {
-        for (int i = 0; i < Global.PLAYERSCOUNT; i++)
+        foreach(Player player in players)
         {
-            players[i] = null;
+            Destroy(player.gameObject);
         }
         CreatePlayers();
     }

@@ -31,8 +31,13 @@ public class Card : MonoBehaviour
     private Global.CARDTYPE type;
     private Global.CARD number;
     private Player holder;
-    private GameObject backImage;
-    private GameObject frontImage;
+
+    //[Header("Card parts sprites section")]
+
+    [SerializeField]
+    private GameObject frontImage, backImage, numberImage, typeImage, bigTypeImage;
+
+
     private RectTransform rectTransform;
     private bool isFacingBackward = false;
     private bool isRed = false;
@@ -40,8 +45,10 @@ public class Card : MonoBehaviour
     private float flipSpeed = 2.5f;
     private int row = 0;
     private int col = 0;
-    public Card cardOnDeck;
 
+    [Space(20)]
+
+    public Card cardOnDeck;
     public bool controlable = false;
     public static UnityAction OnCardFlipped;
 
@@ -53,7 +60,8 @@ public class Card : MonoBehaviour
             number = number,
             holder = holder,
             value = (int)number + (float)type / 5,
-            row = row
+            row = row,
+            col = col
         };
         if (controlable)
         {
@@ -100,14 +108,14 @@ public class Card : MonoBehaviour
 
         if (isRed)
         {
-            frontImage.transform.GetChild(0).GetComponent<Image>().sprite = Singleton.instance.spritesManager.cardNumberSpritesRed[(int) number];
+            numberImage.GetComponent<Image>().sprite = Singleton.instance.spritesManager.cardNumberSpritesRed[(int) number];
         }
         else
         {
-            frontImage.transform.GetChild(0).GetComponent<Image>().sprite = Singleton.instance.spritesManager.cardNumberSpritesBlack[(int) number];
+            numberImage.GetComponent<Image>().sprite = Singleton.instance.spritesManager.cardNumberSpritesBlack[(int) number];
         }
-        frontImage.transform.GetChild(1).GetComponent<Image>().sprite = Singleton.instance.spritesManager.cardTypeSprites[(int) type];
-        frontImage.transform.GetChild(2).GetComponent<Image>().sprite = Singleton.instance.spritesManager.cardTypeSprites[(int)type];
+        typeImage.GetComponent<Image>().sprite = Singleton.instance.spritesManager.cardTypeSprites[(int) type];
+        bigTypeImage.GetComponent<Image>().sprite = Singleton.instance.spritesManager.cardTypeSprites[(int)type];
     }
 
     public void SetCardInfo(CardInfo info, Card cardOnDeck = null)
@@ -122,14 +130,14 @@ public class Card : MonoBehaviour
         if (type == Global.CARDTYPE.DIAMOND || type == Global.CARDTYPE.HEART)
         {
             isRed = true;
-            frontImage.transform.GetChild(0).GetComponent<Image>().sprite = Singleton.instance.spritesManager.cardNumberSpritesRed[(int)number];
+            numberImage.GetComponent<Image>().sprite = Singleton.instance.spritesManager.cardNumberSpritesRed[(int)number];
         }
         else
         {
-            frontImage.transform.GetChild(0).GetComponent<Image>().sprite = Singleton.instance.spritesManager.cardNumberSpritesBlack[(int)number];
+            numberImage.GetComponent<Image>().sprite = Singleton.instance.spritesManager.cardNumberSpritesBlack[(int)number];
         }
-        frontImage.transform.GetChild(1).GetComponent<Image>().sprite = Singleton.instance.spritesManager.cardTypeSprites[(int)type];
-        frontImage.transform.GetChild(2).GetComponent<Image>().sprite = Singleton.instance.spritesManager.cardTypeSprites[(int)type];
+        typeImage.GetComponent<Image>().sprite = Singleton.instance.spritesManager.cardTypeSprites[(int)type];
+        bigTypeImage.GetComponent<Image>().sprite = Singleton.instance.spritesManager.cardTypeSprites[(int)type];
     }
 
     public void FlipCard()
@@ -147,8 +155,6 @@ public class Card : MonoBehaviour
 
     public void Init()
     {
-        backImage = transform.GetChild(0).gameObject;
-        frontImage = transform.GetChild(1).gameObject;
         rectTransform = GetComponent<RectTransform>();
         rectTransform.eulerAngles = new Vector3(0, 0, 0);
     }

@@ -14,26 +14,27 @@ public class PlayerController : MonoBehaviour
     public GameObject line3;
     public GameObject controlableCardPrefab;
     public CardPositionHelper cardPositionHelper;
+
     private List<Card> controlableCardList = new List<Card>();
     private Player player;
-    public Card hoveredCard = null;
-    public Card swapSourceCard = null;
-    public Card swapTargetCard = null;
+    private Card hoveredCard = null;
+    private Card swapSourceCard = null;
+    private Card swapTargetCard = null;
     private bool touchEnabled = false;
+
     void Start()
     {
         controlButton.onClick.AddListener(delegate { OnControlButtonClicked(); });
         closeButton.onClick.AddListener(delegate { OnCloseButtonClicked(); });
         readyButton.onClick.AddListener(delegate { OnReadyButtonClicked(); });
-
-        Init();
     }
 
     public void ResetCards()
     {
-        line1.transform.DetachChildren();
-        line2.transform.DetachChildren();
-        line3.transform.DetachChildren();
+        foreach (Card card in controlableCardList)
+        {
+            Destroy(card);
+        }
         controlableCardList.Clear();
     }
 
@@ -45,31 +46,37 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 pos = new Vector3(cardPositionHelper.line1Pos[i].x, cardPositionHelper.line1Pos[i].y, 0);
             CardInfo info = player.GetCardList(1)[i].GetCardInfo();
-            GameObject card = Instantiate(controlableCardPrefab, line1.transform);
-            card.GetComponent<Card>().Init();
-            card.GetComponent<Card>().SetCardInfo(info, player.GetCardList(1)[i]);
+            Card card = Instantiate(controlableCardPrefab, line1.transform).GetComponent<Card>();
+            card.Init();
+            card.SetHolder(player);
+            card.SetRowCol(info.row, info.col);
+            card.SetCardInfo(info, player.GetCardList(1)[i]);
             card.GetComponent<RectTransform>().anchoredPosition = pos;
-            controlableCardList.Add(card.GetComponent<Card>());
+            controlableCardList.Add(card);
         }
         for (int i = 0; i < Global.LINE23CARDMAX; i++)
         {
             Vector3 pos = new Vector3(cardPositionHelper.line2Pos[i].x, cardPositionHelper.line2Pos[i].y, 0);
             CardInfo info = player.GetCardList(2)[i].GetCardInfo();
-            GameObject card = Instantiate(controlableCardPrefab, line2.transform);
-            card.GetComponent<Card>().Init();
-            card.GetComponent<Card>().SetCardInfo(info, player.GetCardList(2)[i]);
+            Card card = Instantiate(controlableCardPrefab, line2.transform).GetComponent<Card>();
+            card.Init();
+            card.SetHolder(player);
+            card.SetRowCol(info.row, info.col);
+            card.SetCardInfo(info, player.GetCardList(2)[i]);
             card.GetComponent<RectTransform>().anchoredPosition = pos;
-            controlableCardList.Add(card.GetComponent<Card>());
+            controlableCardList.Add(card);
         }
         for (int i = 0; i < Global.LINE23CARDMAX; i++)
         {
             Vector3 pos = new Vector3(cardPositionHelper.line3Pos[i].x, cardPositionHelper.line3Pos[i].y, 0);
             CardInfo info = player.GetCardList(3)[i].GetCardInfo();
-            GameObject card = Instantiate(controlableCardPrefab, line3.transform);
-            card.GetComponent<Card>().Init();
-            card.GetComponent<Card>().SetCardInfo(info, player.GetCardList(3)[i]);
+            Card card = Instantiate(controlableCardPrefab, line3.transform).GetComponent<Card>();
+            card.Init();
+            card.SetHolder(player);
+            card.SetRowCol(info.row, info.col);
+            card.SetCardInfo(info, player.GetCardList(3)[i]);
             card.GetComponent<RectTransform>().anchoredPosition = pos;
-            controlableCardList.Add(card.GetComponent<Card>());
+            controlableCardList.Add(card);
         }
     }
 
@@ -169,10 +176,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnReadyButtonClicked()
     {
-        player.isReady = true;
+        player.SetReady(true);
+        readyButton.interactable = false;
     }
 
-    public void OnCloseButtonClicked()
+    public void HideControllerUI()
     {
         controlObjects.SetActive(false);
         if (swapSourceCard)
@@ -186,6 +194,11 @@ public class PlayerController : MonoBehaviour
         swapSourceCard = null;
         swapTargetCard = null;
         touchEnabled = false;
+    }
+
+    public void OnCloseButtonClicked()
+    {
+        HideControllerUI();
     }
 
     public void SwapCard(Card source, Card target)

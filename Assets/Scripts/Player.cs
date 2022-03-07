@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [System.Serializable]
-public class Player
+public class Player : MonoBehaviour
 {
     public Character playerCharData = null;
     public GameObject line1;
@@ -21,9 +22,14 @@ public class Player
     private int money = 0;
     private bool isBot = false;
 
-    public Player(int index)
+    public static UnityAction OnPlayerReady;
+
+    private void Start()
     {
-        playerIndex = index;
+        cardListInHand = new List<Card>();
+        line1CardList = new List<Card>();
+        line2CardList = new List<Card>();
+        line3CardList = new List<Card>();
     }
 
     public void SetAsBot()
@@ -37,9 +43,28 @@ public class Player
         return isBot;
     }
 
+    public void SetIndex(int index)
+    {
+        playerIndex = index;
+    }
+
+    public void SetReady(bool value)
+    {
+        isReady = value;
+        GameUIManager.instance.playersUIObjects[playerIndex].readyLabel.gameObject.SetActive(value);
+        if (value)
+        {
+            OnPlayerReady?.Invoke();
+        }
+    }
+
     public void SetMoney(int value)
     {
         money += value;
+        if (playerIndex == 0) //save player money
+        {
+            PlayerPrefs.SetInt("money", money);
+        }
     }
 
     public int GetMoney()
@@ -70,15 +95,70 @@ public class Player
 
     public List<Card> GetCardList(int index)
     {
-        if(index == 1) {
+        if (index == 1)
+        {
             return line1CardList;
-        } else if(index ==2) {
+        }
+        else if (index == 2)
+        {
             return line2CardList;
-        } else if (index == 3) {
+        }
+        else if (index == 3)
+        {
             return line3CardList;
-        } else {
+        }
+        else
+        {
             return cardListInHand;
         }
+    }
+
+    public void SwapCardBot(Card sourceCard, Card targetCard)
+    {
+        CardInfo sourceCardInfo = sourceCard.GetCardInfo();
+        CardInfo targetCardInfo = targetCard.GetCardInfo();
+        List<Card> sourceCardList = new List<Card>();
+        List<Card> targetCardList = new List<Card>();
+        GameObject deckSourceLineObject = sourceCard.transform.parent.gameObject;
+        GameObject deckTargetLineObject = targetCard.transform.parent.gameObject;
+        if (sourceCardInfo.row == 1)
+        {
+            sourceCardList = line1CardList;
+        }
+        else if (sourceCardInfo.row == 2)
+        {
+            sourceCardList = line2CardList;
+        }
+        else if (sourceCardInfo.row == 3)
+        {
+            sourceCardList = line3CardList;
+        }
+        if (targetCardInfo.row == 1)
+        {
+            targetCardList = line1CardList;
+        }
+        else if (targetCardInfo.row == 2)
+        {
+            targetCardList = line2CardList;
+        }
+        else if (targetCardInfo.row == 3)
+        {
+            targetCardList = line3CardList;
+        }
+        sourceCardList.Remove(sourceCard);
+        targetCardList.Remove(targetCard);
+
+        sourceCardList.Insert(sourceCardInfo.row, targetCard);
+        targetCardList.Insert(targetCardInfo.row, sourceCard);
+
+        sourceCard.transform.parent = deckTargetLineObject.transform;
+        targetCard.transform.parent = deckSourceLineObject.transform;
+
+        sourceCard.transform.SetSiblingIndex(targetCardInfo.col);
+        targetCard.transform.SetSiblingIndex(sourceCardInfo.col);
+
+        sourceCard.SetRowCol(targetCardInfo.row, targetCardInfo.col);
+        targetCard.SetRowCol(sourceCardInfo.row, sourceCardInfo.col);
     }
 
     public void SwapCard(Card sourceCard, Card targetCard)
@@ -94,10 +174,12 @@ public class Player
         if (sourceCardInfo.row == 1)
         {
             sourceCardList = line1CardList;
-        } else if (sourceCardInfo.row == 2)
+        }
+        else if (sourceCardInfo.row == 2)
         {
             sourceCardList = line2CardList;
-        } else if (sourceCardInfo.row == 3)
+        }
+        else if (sourceCardInfo.row == 3)
         {
             sourceCardList = line3CardList;
         }
@@ -114,11 +196,11 @@ public class Player
             targetCardList = line3CardList;
         }
 
-        sourceCardList.Remove(sourceCard);
-        targetCardList.Remove(targetCard);
+        sourceCardList.Remove(sourceCard.cardOnDeck);
+        targetCardList.Remove(targetCard.cardOnDeck);
 
-        sourceCardList.Insert(sourceCardInfo.row, targetCard);
-        targetCardList.Insert(targetCardInfo.row, sourceCard);
+        sourceCardList.Insert(sourceCardInfo.row, targetCard.cardOnDeck);
+        targetCardList.Insert(targetCardInfo.row, sourceCard.cardOnDeck);
 
         //change controlable card position
         Vector3 tempSourcePos = sourceCard.GetComponent<RectTransform>().anchoredPosition;
@@ -145,25 +227,27 @@ public class Player
 
     public void AddCardToList(int lineIndex, Card card)
     {
-        int row = 0;
+        int col = 0;
         if (lineIndex == 1)
         {
             line1CardList.Add(card);
-            row = line1CardList.Count - 1;
-        } else if (lineIndex == 2)
+            col = line1CardList.Count - 1;
+        }
+        else if (lineIndex == 2)
         {
             line2CardList.Add(card);
-            row = line2CardList.Count - 1;
-        } else if (lineIndex == 3)
+            col = line2CardList.Count - 1;
+        }
+        else if (lineIndex == 3)
         {
             line3CardList.Add(card);
-            row = line3CardList.Count - 1;
+            col = line3CardList.Count - 1;
         }
         card.SetHolder(this);
-        card.SetRowCol(lineIndex, row);
+        card.SetRowCol(lineIndex, col);
         cardListInHand.Add(card);
 
-        if(playerIndex != 0)
+        if (playerIndex != 0)
         {
             card.FaceBackward();
         }

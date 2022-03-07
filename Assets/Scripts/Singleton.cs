@@ -5,6 +5,7 @@ using UnityEngine;
 public class Singleton : MonoBehaviour
 {
     public static Singleton instance { get; private set; }
+
     public AudioManager audioManager { get; private set; }
     public SpritesManager spritesManager { get; private set; }
     public PlayerManager playerManager { get; private set; }
@@ -14,12 +15,10 @@ public class Singleton : MonoBehaviour
         if (instance != null && instance != this)
         {
             Destroy(this);
+            return;
         }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
         audioManager = GetComponentInChildren<AudioManager>();
         spritesManager = GetComponentInChildren<SpritesManager>();
         playerManager = GetComponentInChildren<PlayerManager>();

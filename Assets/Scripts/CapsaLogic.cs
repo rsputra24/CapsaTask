@@ -91,6 +91,10 @@ public class CapsaLogic
                     rankComboInfo.number = highestCard.GetCardInfo().number;
                     rankComboInfo.rank = Global.CARDSRANK.HIGH_CARD;
                 }
+                else
+                {
+                    //Debug.Log("test ");
+                }
             }
             if (pairsList.Count > 0)
             {

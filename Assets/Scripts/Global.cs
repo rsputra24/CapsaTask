@@ -55,7 +55,9 @@ public  class Global
         BUTTONCLICK,
         FLIP,
         WIN,
-        LOSE
+        LOSE,
+        READY,
+        BG
     };
 
     public enum CARDSRANK{
@@ -68,5 +70,12 @@ public  class Global
         TWO_PAIR = 30,
         ONE_PAIR = 20,
         HIGH_CARD = 8
+    };
+
+    public enum CHAR_EMOTION
+    {
+        NORMAL,
+        WIN,
+        LOSE
     };
 }

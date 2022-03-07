@@ -263,12 +263,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dc6cd355debc944b96552d2332ebc64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSourceBg: {fileID: 297604302}
   audioSource: {fileID: 297604301}
   audioClips:
   - {fileID: 8300000, guid: 1e537bd5cb2898b4e8577a0d58ffb467, type: 3}
   - {fileID: 8300000, guid: e01ddd2a77bb66e4c955cb80b5d27737, type: 3}
   - {fileID: 8300000, guid: 66b2f31130a71cf4da7449b5e0df04fa, type: 3}
   - {fileID: 8300000, guid: 78e3096c737e4ef428a22ddda8faf444, type: 3}
+  - {fileID: 8300000, guid: b0e345fc90bf705439a7873d17cabb8c, type: 3}
 --- !u!82 &297604301
 AudioSource:
   m_ObjectHideFlags: 0
@@ -376,7 +378,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 72e20dd2cc9d841479460c4ec8cf988d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.194
   m_Pitch: 1
   Loop: 0
@@ -595,21 +597,21 @@ MonoBehaviour:
   characterPanel: {fileID: 320581077}
   characterButtonPrefab: {fileID: 1701017953136830341, guid: aac432a927382764394658dcb823155d, type: 3}
   characters:
-  - normal: {fileID: 21300000, guid: e1eccc13f291ab44f9e3edfe3d4b20b8, type: 3}
-    win: {fileID: 21300000, guid: a1ef18a6808b6c944b7392e28fd06d02, type: 3}
-    lose: {fileID: 21300000, guid: f4f9f63a6532c4243af8f4d5a02abc51, type: 3}
+  - normal: {fileID: 1800095881352445798, guid: 5638befee63f01840afaec73cde4bd91, type: 3}
+    win: {fileID: -3120991075803930311, guid: 5638befee63f01840afaec73cde4bd91, type: 3}
+    lose: {fileID: -7772463822297299304, guid: 5638befee63f01840afaec73cde4bd91, type: 3}
     name: Jessy
-  - normal: {fileID: 21300000, guid: 19faab8b2c45b2f499f5883c456627f7, type: 3}
-    win: {fileID: 21300000, guid: 0d6b80bbfe90b934a8edc1aebdbb55b2, type: 3}
-    lose: {fileID: 21300000, guid: 5d4122981ff5bac44b256ed82fe3babd, type: 3}
+  - normal: {fileID: 5965727242071729583, guid: 5638befee63f01840afaec73cde4bd91, type: 3}
+    win: {fileID: -2314608115035340092, guid: 5638befee63f01840afaec73cde4bd91, type: 3}
+    lose: {fileID: -5382686054990064298, guid: 5638befee63f01840afaec73cde4bd91, type: 3}
     name: Bryan
-  - normal: {fileID: 21300000, guid: 59fcac7d50f1bd14e8da9b1ed718ed81, type: 3}
-    win: {fileID: 21300000, guid: c48b33d8a5ad518489b4eec6c5ec079c, type: 3}
-    lose: {fileID: 21300000, guid: 167f269c00cf0e741b83d37348f9fcfe, type: 3}
+  - normal: {fileID: -6324778352117459165, guid: 5638befee63f01840afaec73cde4bd91, type: 3}
+    win: {fileID: -1589183476599216481, guid: 5638befee63f01840afaec73cde4bd91, type: 3}
+    lose: {fileID: -1108025150380532559, guid: 5638befee63f01840afaec73cde4bd91, type: 3}
     name: Konate
-  - normal: {fileID: 21300000, guid: 5f865af863e750247a44cdc553098545, type: 3}
-    win: {fileID: 21300000, guid: b18f732bc7ee6704db8ad6a1f9715efa, type: 3}
-    lose: {fileID: 21300000, guid: 96f6b2aadeae5c9439130ba7b008a82d, type: 3}
+  - normal: {fileID: 2248349213070100149, guid: 5638befee63f01840afaec73cde4bd91, type: 3}
+    win: {fileID: -3644227289342037094, guid: 5638befee63f01840afaec73cde4bd91, type: 3}
+    lose: {fileID: 7978907437216871038, guid: 5638befee63f01840afaec73cde4bd91, type: 3}
     name: Tiara
 --- !u!4 &566127041
 Transform:
@@ -827,40 +829,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardNumberSpritesBlack:
-  - {fileID: 21300000, guid: be18d9aea805439ab79bb24cb309cc4d, type: 3}
-  - {fileID: 21300000, guid: 632eca737fdd41f4905274128cacf660, type: 3}
-  - {fileID: 21300000, guid: c9aaabeb533e402c91cf0a1d67fd2c52, type: 3}
-  - {fileID: 21300000, guid: 0394c47bc9ee4295a7091afc6a17af7e, type: 3}
-  - {fileID: 21300000, guid: aa5670b05728498c8bf73a4232ecff8a, type: 3}
-  - {fileID: 21300000, guid: 39d48ee9902b483d9932a8030a84f1b3, type: 3}
-  - {fileID: 21300000, guid: e1257ab59c674d6f8228426154ba9544, type: 3}
-  - {fileID: 21300000, guid: 3ab604d9d4504880a43259bb9cd48010, type: 3}
-  - {fileID: 21300000, guid: 61297d23f81e49cdae5876e12058d28f, type: 3}
-  - {fileID: 21300000, guid: 028c6b25e3b248bcbb7b377ddc5e922e, type: 3}
-  - {fileID: 21300000, guid: 46fae35ea1f946d9b2efafe9d2bf42ae, type: 3}
-  - {fileID: 21300000, guid: 01ba7b0e1f3d4fe98ee1d4fdfc1c0cf0, type: 3}
-  - {fileID: 21300000, guid: d3d01c3d71c843eaa550b0cf341636c1, type: 3}
+  - {fileID: -5906598218874874896, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: -1816755548282093316, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: 2008176328888099268, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: 6967745887157389618, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: 6501298950303736333, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: -3181606171480048652, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: -7010260848350730462, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: -8655818156195654838, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: 6346318911325233748, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: 1840059084634729652, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: 1127223760459724062, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: -2374222918679686493, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: -761933863725385812, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
   cardNumberSpritesRed:
-  - {fileID: 21300000, guid: ee4998c65ed24e34a660b9fc490b24a9, type: 3}
-  - {fileID: 21300000, guid: bba91efe2c0b47e48c89c8d6a011d564, type: 3}
-  - {fileID: 21300000, guid: eb5bccbfea2f48d299669508d63461c8, type: 3}
-  - {fileID: 21300000, guid: 0bdc327cd5ae45f6ba13fe95b0139679, type: 3}
-  - {fileID: 21300000, guid: fcaa523021a942d1bc70f2dc67d9f0a5, type: 3}
-  - {fileID: 21300000, guid: cca1ccf6df7249ea980116532a6cd6c3, type: 3}
-  - {fileID: 21300000, guid: 42bc37e567c44d49bdd9a083a389ea01, type: 3}
-  - {fileID: 21300000, guid: 624e09a003ec4f09955e13cbefdbc65f, type: 3}
-  - {fileID: 21300000, guid: e95bdb6378d948a08e8b206c62f72b66, type: 3}
-  - {fileID: 21300000, guid: 47e4d5ff864f476fbefb4d5f2d377b06, type: 3}
-  - {fileID: 21300000, guid: 82d9411fd4914a66af1987fdbf65b45e, type: 3}
-  - {fileID: 21300000, guid: 712271a53c3d45169964b6f1b8c9102b, type: 3}
-  - {fileID: 21300000, guid: d7e4823d75d94919b3a57754e8cd8f16, type: 3}
+  - {fileID: -5774996654182199871, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: 4443897450750874535, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: 5661049957185019681, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: 8474981341611232960, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: 6836142153017594085, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: 2185498278340178504, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: 430984766625829748, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: -1317986280940093683, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: -8326724806951850010, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: 8914089594741642868, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: 276181914589855336, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: 2450565909728410856, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: -3165705482850905674, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
   cardTypeSprites:
-  - {fileID: 21300000, guid: 2d2f3dc5bce3422191a7b9dabb82e901, type: 3}
-  - {fileID: 21300000, guid: 14337ed8d077471ca0708e61578fb1e4, type: 3}
-  - {fileID: 21300000, guid: 4f7b00a2933d41ed853eb5d095ba7b06, type: 3}
-  - {fileID: 21300000, guid: 8b2860d8774049e5b456c287d16a17c7, type: 3}
-  cardFront: {fileID: 21300000, guid: bd172119e70d47cc9036cf01c6daa205, type: 3}
-  cardBack: {fileID: 21300000, guid: c6aa3857d10141369a167f218819bb9c, type: 3}
+  - {fileID: -4319790058061533678, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: -265429860660026926, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: 3753086343587598951, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  - {fileID: 8156252031194362294, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  cardFront: {fileID: 4767218137718297435, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
+  cardBack: {fileID: 1187961194834725857, guid: 928fe05aae359624292c2e180dafe4ab, type: 3}
 --- !u!1 &1311498387
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,46 +1137,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players:
-  - playerData:
-      normal: {fileID: 0}
-      win: {fileID: 0}
-      lose: {fileID: 0}
-      name: 
-    line1: {fileID: 0}
-    line2: {fileID: 0}
-    line3: {fileID: 0}
-    isReady: 0
-    playerIndex: 0
-  - playerData:
-      normal: {fileID: 0}
-      win: {fileID: 0}
-      lose: {fileID: 0}
-      name: 
-    line1: {fileID: 0}
-    line2: {fileID: 0}
-    line3: {fileID: 0}
-    isReady: 0
-    playerIndex: 0
-  - playerData:
-      normal: {fileID: 0}
-      win: {fileID: 0}
-      lose: {fileID: 0}
-      name: 
-    line1: {fileID: 0}
-    line2: {fileID: 0}
-    line3: {fileID: 0}
-    isReady: 0
-    playerIndex: 0
-  - playerData:
-      normal: {fileID: 0}
-      win: {fileID: 0}
-      lose: {fileID: 0}
-      name: 
-    line1: {fileID: 0}
-    line2: {fileID: 0}
-    line3: {fileID: 0}
-    isReady: 0
-    playerIndex: 0
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  playerPrefab: {fileID: 5411926580352820259, guid: 2eed4c58078079a4898b40ebaa88c510, type: 3}
 --- !u!4 &1866619860
 Transform:
   m_ObjectHideFlags: 0

@@ -8,13 +8,15 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public List<Card> cardList;
-    public GameObject cardPrefab;
-    public GameObject table;
     public List<GameObject> playersDeckObjects;
 
-    private Player[] players = new Player[4];
+    public GameObject cardPrefab;
+    public GameObject table;
     public Global.GAMESTATE currentGameState;
-    private float swapTimeLeft = 0;
+    public float swapTimeLeft = 0;
+
+    private Player[] players = new Player[4];
+
 
     private void Awake()
     {
@@ -31,53 +33,53 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         players = Singleton.instance.playerManager.players;
-        PrepareCards();
         SetPlayersDeck();
         StartGame();
+        //StartCoroutine(StartNewGame(0.5f));
     }
 
     void PrepareCards()
     {
         for (int i = 0; i < Global.CARDSCOUNT; i++)
         {
-            GameObject cardObject = Instantiate(cardPrefab, table.transform);
-            Card card = cardObject.GetComponent<Card>();
-            card.Init(); // set card facing backward if index is 0
-            card.SetCardInfo(i);
+            Card card = PoolManager.instance.GetPooledCard(i);
+            card.gameObject.SetActive(true);
             cardList.Add(card);
         }
+        
     }
 
     void ResetCards()
     {
         for (int i = 0; i < Global.PLAYERSCOUNT; i++)
         {
-            players[i].isReady = false;
+            players[i].SetReady(false);
             players[i].ResetCards();
             if (i == 0)
             {
                 FindObjectOfType<PlayerController>().ResetCards();
             }
         }
-        for (int i = 0; i < Global.CARDSCOUNT; i++)
+        foreach(Card card in cardList)
         {
-            Card card = cardList[i];
-            card.transform.parent = table.transform;
+            PoolManager.instance.ReturnCardToPool(card);
         }
+        cardList.Clear();
     }
 
     void StartGame()
     {
         ResetCards();
+        PrepareCards();
         GameUIManager.instance.SetUI();
         currentGameState = Global.GAMESTATE.GAME_START;
         swapTimeLeft = Global.SWAPTIME;
         AdvanceNextState();
     }
 
-    IEnumerator StartNewGame()
+    IEnumerator StartNewGame(float delay = 3)
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(delay);
         Debug.Log("start new game");
         StartGame();
     }
@@ -94,6 +96,7 @@ public class GameManager : MonoBehaviour
                 currentGameState = Global.GAMESTATE.GAME_SWAPPING;
                 break;
             case Global.GAMESTATE.GAME_SWAPPING:
+                FindObjectOfType<PlayerController>().HideControllerUI();
                 currentGameState = Global.GAMESTATE.GAME_COMPARING;
                 CompareCards();
                 break;
@@ -142,7 +145,16 @@ public class GameManager : MonoBehaviour
             {
                 AdvanceNextState();
             }
-            if (players[0].isReady)
+
+            int readyCount = 0;
+            for (int i = 0; i < Global.PLAYERSCOUNT; i++)
+            {
+                if (players[i].isReady)
+                {
+                    readyCount++;
+                }
+            }
+            if (readyCount >= Global.PLAYERSCOUNT)
             {
                 AdvanceNextState();
             }
@@ -173,6 +185,11 @@ public class GameManager : MonoBehaviour
                 players[i].AddCardToList(3, cardList[cardIndex]);
                 cardIndex++;
             }
+
+            if (i == 0)
+            {
+                FindObjectOfType<PlayerController>().Init();
+            }
         }
         AdvanceNextState();
     }
@@ -190,6 +207,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < Global.PLAYERSCOUNT; i++)
         {
             Player player = players[i];
+            players[i].SetReady(false);
             if (i != 0)
             {
                 for (int j = 0; j < Global.LINE1CARDMAX; j++)
@@ -203,9 +221,10 @@ public class GameManager : MonoBehaviour
         }
         PlayersScoring(cardRankComboInfos);
         yield return new WaitForSeconds(1.5f);
-        
+
         //second line
-        for (int i = 1; i < Global.PLAYERSCOUNT; i++)
+        cardRankComboInfos.Clear();
+        for (int i = 0; i < Global.PLAYERSCOUNT; i++)
         {
             Player player = players[i];
             if (i != 0)
@@ -222,7 +241,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         //third line
-        for (int i = 1; i < Global.PLAYERSCOUNT; i++)
+        cardRankComboInfos.Clear();
+        for (int i = 0; i < Global.PLAYERSCOUNT; i++)
         {
             Player player = players[i];
             if (i != 0)
@@ -248,25 +268,28 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < size; i++)
         {
             Player player = cardRankComboInfos[i].highestCard.GetCardInfo().holder;
+            int score = 0;
             if (i == 0)
             {
-                player.SetScore(-size);
+                score = -size;
             } else if(i == size - 1)
             {
-                player.SetScore(size);
+                score = size;
             }
             else
             {
                 if(i == 2 || size == 3)
                 {
-                    player.SetScore(1);
+                     score =1;
                 }
                 else if(i == 1)
                 {
-                    player.SetScore(-1);
+                     score =-1;
                 }
             }
-            //Debug.Log(cardRankComboInfos[i].value);
+            player.SetScore(score);
+            GameUIManager.instance.DisplayCardsRankScore(player, cardRankComboInfos[i].rank, score);
+            GameUIManager.instance.UpdateUI();
         }
     }
 
@@ -279,7 +302,16 @@ public class GameManager : MonoBehaviour
             int moneyEarned = player.GetScore() * Global.BET;
 
             player.SetMoney(moneyEarned);
-            Debug.Log("player " + player.playerIndex + " score " + player.GetScore());
+            GameUIManager.instance.DisplayEarning(player, moneyEarned);
+
+            if (moneyEarned > 0)
+            {
+                Singleton.instance.audioManager.PlaySFX(Global.AUDIOCLIPS.WIN);
+            }
+            else
+            {
+                Singleton.instance.audioManager.PlaySFX(Global.AUDIOCLIPS.LOSE);
+            }
         }
         GameUIManager.instance.UpdateUI();
         AdvanceNextState();
