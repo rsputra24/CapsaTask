@@ -36,7 +36,6 @@ public class CapsaLogic
                     {
                         straight = false;
                     }
-                    //Debug.Log(cardInfo.number + " vs " + nextCardInfo.number);
                     if (cardInfo.number == nextCardInfo.number)
                     {
                         numberCount++;
@@ -50,6 +49,7 @@ public class CapsaLogic
                         highestCardFlush = cardInfo.value > nextCardInfo.value ? cardList[i] : cardList[j];
                     }
                 }
+
                 ////ranking
                 if (typeCount == size)
                 {
@@ -81,7 +81,17 @@ public class CapsaLogic
                     rankComboInfo.type = highestCardPair.GetCardInfo().type;
                     rankComboInfo.number = highestCardPair.GetCardInfo().number;
                     pairsList.Add(pairCardList);
-                    rankComboInfo.rank = numberCount == 3 ? Global.CARDSRANK.THREE_KIND : Global.CARDSRANK.ONE_PAIR;
+                    if(numberCount == 3)
+                    {
+                        rankComboInfo.rank = Global.CARDSRANK.THREE_KIND;
+                    } else if(numberCount == 4)
+                    {
+                        rankComboInfo.rank = Global.CARDSRANK.FOUR_KIND;
+                    }
+                    else if(numberCount == 2)
+                    {
+                        rankComboInfo.rank = Global.CARDSRANK.ONE_PAIR;
+                    }
                     checkHighCard = false;
                 }
                 else if(checkHighCard)
@@ -99,6 +109,21 @@ public class CapsaLogic
             if (pairsList.Count > 0)
             {
                 rankComboInfo.pairsList = pairsList;
+                if(pairsList.Count == 2)
+                {
+                    int firstPairCount = pairsList[0].Count;
+                    int secondPairCount = pairsList[1].Count;
+                    Debug.Log("first " + firstPairCount);
+                    Debug.Log("second " + secondPairCount);
+                    if (firstPairCount == 1 && secondPairCount == 1)
+                    {
+                        rankComboInfo.rank = Global.CARDSRANK.TWO_PAIR;
+                    }
+                    else if(firstPairCount == 2 && secondPairCount == 1 || firstPairCount == 1 && secondPairCount == 2)
+                    {
+                        //rankComboInfo.rank = Global.CARDSRANK.FULL_HOUSE;
+                    }
+                }
             }
 
         }
